@@ -147,7 +147,7 @@ tracker:
   # Only handle requests on your videos.
   # If you set this to false it means you have a public tracker.
   # Then, it is possible that clients overload your instance with external torrents
-  private: true
+  private: false
   # Reject peers that do a lot of announces (could improve privacy of TCP/UDP peers)
   reject_too_many_announces: false
 
@@ -242,6 +242,22 @@ transcoding:
   # If you also enabled the webtorrent format, it will multiply videos storage by 2
   hls:
     enabled: false
+
+live:
+  enabled: false
+
+  rtmp:
+    port: 1935
+
+  enable_transcoding: false
+  transcoding_threads: 2
+  resolutions:
+    240p: false
+    360p: false
+    480p: false
+    720p: false
+    1080p: false
+    2160p: false
 
 import:
   # Add ability for your users to import remote videos (from YouTube, torrent...)

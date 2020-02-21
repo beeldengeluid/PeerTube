@@ -596,6 +596,15 @@ class Html5Hlsjs {
         this.edgeMargin = this.hlsjsConfig.liveSyncDurationCount * data.details.targetduration
       }
 
+      const startTime = data.details.startSN * data.details.averagetargetduration
+      const endTime = data.details.endSN * data.details.averagetargetduration
+      const currentTime = endTime - this.edgeMargin
+
+      console.log(data.details)
+      console.log('Start time is %d:%d:%d -> %ds', startTime / 3600, (startTime % 3600) / 60, startTime % 3600 % 60, startTime)
+      console.log('End time is %d:%d:%d -> %ds', endTime / 3600, (endTime % 3600) / 60, endTime % 3600 % 60, endTime)
+      console.log('Current time is %d:%d:%d -> %ds', currentTime / 3600, (currentTime % 3600) / 60, currentTime % 3600 % 60, currentTime)
+
       this.isLive = data.details.live
       this.dvrDuration = data.details.totalduration
       this._duration = this.isLive ? Infinity : data.details.totalduration

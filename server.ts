@@ -101,7 +101,8 @@ import {
   pluginsRouter,
   webfingerRouter,
   trackerRouter,
-  createWebsocketTrackerServer, botsRouter
+  createWebsocketTrackerServer,
+  botsRouter
 } from './server/controllers'
 import { advertiseDoNotTrack } from './server/middlewares/dnt'
 import { Redis } from './server/lib/redis'
@@ -119,6 +120,7 @@ import { updateStreamingPlaylistsInfohashesIfNeeded } from './server/lib/hls'
 import { PluginsCheckScheduler } from './server/lib/schedulers/plugins-check-scheduler'
 import { Hooks } from './server/lib/plugins/hooks'
 import { PluginManager } from './server/lib/plugins/plugin-manager'
+import { LiveManager } from '@server/lib/live-manager'
 
 // ----------- Command line -----------
 
@@ -139,14 +141,14 @@ if (isTestInstance()) {
 }
 
 // For the logger
-morgan.token<express.Request>('remote-addr', req => {
+morgan.token('remote-addr', req => {
   if (CONFIG.LOG.ANONYMIZE_IP === true || req.get('DNT') === '1') {
     return anonymize(req.ip, 16, 16)
   }
 
   return req.ip
 })
-morgan.token<express.Request>('user-agent', req => {
+morgan.token('user-agent', req => {
   if (req.get('DNT') === '1') {
     return useragent.parse(req.get('user-agent')).family
   }
@@ -270,6 +272,8 @@ async function startApplication () {
     .catch(err => logger.error('Cannot update streaming playlist infohashes.', { err }))
 
   if (cli.plugins) await PluginManager.Instance.registerPluginsAndThemes()
+
+  LiveManager.Instance.run()
 
   // Make server listening
   server.listen(port, hostname, () => {

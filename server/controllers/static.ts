@@ -35,6 +35,12 @@ staticRouter.use(cors())
   Cors is very important to let other servers access torrent and video files
 */
 
+staticRouter.use(
+  '/live/toto',
+  cors(),
+  express.static('/tmp/super-live/live/toto/')
+)
+
 const torrentsPhysicalPath = CONFIG.STORAGE.TORRENTS_DIR
 staticRouter.use(
   STATIC_PATHS.TORRENTS,

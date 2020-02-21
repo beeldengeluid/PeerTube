@@ -6,6 +6,8 @@ function segmentValidatorFactory (segmentsSha256Url: string) {
   const regex = /bytes=(\d+)-(\d+)/
 
   return async function segmentValidator (segment: Segment) {
+    return
+
     const filename = basename(segment.url)
     const captured = regex.exec(segment.range)
 

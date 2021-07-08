@@ -398,6 +398,16 @@ const VIDEO_LICENCES = {
   7: 'Public Domain Dedication'
 }
 
+const VIDEO_LICENCES_URLS = {
+  1: 'https://creativecommons.org/licenses/by/4.0/',
+  2: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  3: 'https://creativecommons.org/licenses/by-nd/4.0/',
+  4: 'https://creativecommons.org/licenses/by-nc/4.0/',
+  5: 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
+  6: 'https://creativecommons.org/licenses/by-nc-nd/4.0/',
+  7: 'https://creativecommons.org/publicdomain/zero/1.0/'
+}
+
 const VIDEO_LANGUAGES: { [id: string]: string } = {}
 
 const VIDEO_PRIVACIES: { [ id in VideoPrivacy ]: string } = {

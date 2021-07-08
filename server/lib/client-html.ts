@@ -59,7 +59,8 @@ type Tags = {
     height?: number
   }
 
-  licence: {
+  licence?: {
+    identifier: number
     name: string
     url?: string
   }
@@ -127,8 +128,9 @@ class ClientHtml {
     }
 
     const licence = {
-      name: 'CC-BY',
-      url: 'https://creativecommons.org/licenses/by/4.0/'
+      identifier: video.licence,
+      name: VIDEO_LICENCES[video.licence],
+      url: VIDEO_LICENCES_URLS[video.licence]
     }
 
     const ogType = 'video'

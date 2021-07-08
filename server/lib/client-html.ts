@@ -18,7 +18,9 @@ import {
   EMBED_SIZE,
   FILES_CONTENT_HASH,
   PLUGIN_GLOBAL_CSS_PATH,
-  WEBSERVER
+  WEBSERVER,
+  VIDEO_LICENCES,
+  VIDEO_LICENCES_URLS
 } from '../initializers/constants'
 import { AccountModel } from '../models/account/account'
 import { getActivityStreamDuration } from '../models/video/formatter/video-format-utils'
@@ -55,6 +57,11 @@ type Tags = {
     url: string
     width?: number
     height?: number
+  }
+
+  licence: {
+    name: string
+    url?: string
   }
 }
 
@@ -119,6 +126,11 @@ class ClientHtml {
       views: video.views
     }
 
+    const licence = {
+      name: 'CC-BY',
+      url: 'https://creativecommons.org/licenses/by/4.0/'
+    }
+
     const ogType = 'video'
     const twitterCard = CONFIG.SERVICES.TWITTER.WHITELISTED ? 'player' : 'summary_large_image'
     const schemaType = 'VideoObject'
@@ -131,6 +143,7 @@ class ClientHtml {
       description,
       image,
       embed,
+      licence,
       ogType,
       twitterCard,
       schemaType
@@ -477,6 +490,10 @@ class ClientHtml {
 
       schema['thumbnailUrl'] = tags.image.url
       schema['contentUrl'] = tags.url
+    }
+
+    if (tags.licence.url) {
+      schema['license'] = tags.licence.url
     }
 
     return schema
